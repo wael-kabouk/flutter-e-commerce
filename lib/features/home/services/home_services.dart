@@ -23,19 +23,53 @@ class HomeServices {
           'x-auth-token': userProvider.user.token
         },
       );
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            //decode to reach a particular item then encode to model using fromJson().
-            var decodedProducts = jsonDecode(res.body);
-            for (int i = 0; i < decodedProducts.length; i++) {
-              products.add(Product.fromJson(jsonEncode(decodedProducts[i])));
-            }
-          });
+      if (context.mounted) {
+        httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: () {
+              //decode to reach a particular item then encode to model using fromJson().
+              var decodedProducts = jsonDecode(res.body);
+              for (int i = 0; i < decodedProducts.length; i++) {
+                products.add(Product.fromJson(jsonEncode(decodedProducts[i])));
+              }
+            });
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
     return products;
+  }
+
+  Future<Product> getDealOfTheDay({required BuildContext context}) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    Product product = Product(
+        name: '',
+        description: '',
+        price: 0,
+        quantity: 0,
+        imagesUrls: [],
+        category: '');
+
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/api/deal-of-day'),
+        headers: <String, String>{
+          'Content-Type': "application/json; charset=UTF-8",
+          'x-auth-token': userProvider.user.token
+        },
+      );
+      if (context.mounted) {
+        httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: () {
+              product = Product.fromJson(res.body);
+            });
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return product;
   }
 }

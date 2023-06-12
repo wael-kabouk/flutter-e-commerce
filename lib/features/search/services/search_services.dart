@@ -22,16 +22,18 @@ class SearchServices {
           'x-auth-token': userProvider.user.token
         },
       );
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            //decode to reach a particular item then encode to model using fromJson().
-            var decodedProducts = jsonDecode(res.body);
-            for (int i = 0; i < decodedProducts.length; i++) {
-              products.add(Product.fromJson(jsonEncode(decodedProducts[i])));
-            }
-          });
+      if (context.mounted) {
+        httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: () {
+              //decode to reach a particular item then encode to model using fromJson().
+              var decodedProducts = jsonDecode(res.body);
+              for (int i = 0; i < decodedProducts.length; i++) {
+                products.add(Product.fromJson(jsonEncode(decodedProducts[i])));
+              }
+            });
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }

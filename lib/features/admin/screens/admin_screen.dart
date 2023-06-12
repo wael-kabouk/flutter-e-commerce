@@ -1,4 +1,6 @@
 import 'package:e_commerce_app/constants/global_variables.dart';
+import 'package:e_commerce_app/features/admin/screens/analytics_screen.dart';
+import 'package:e_commerce_app/features/admin/screens/orders_screen.dart';
 import 'package:e_commerce_app/features/admin/screens/posts_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +18,8 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     const PostsScreen(),
-    const Center(child: Text("2")),
-    const Center(child: Text("3"))
+    const AnalyticsScreen(),
+    const OrdersScreen()
   ];
 
   void updatePage(int nextPage) {
@@ -39,8 +41,7 @@ class _AdminScreenState extends State<AdminScreen> {
               child: Image.asset(
                 "assets/images/logo.png",
                 width: 120,
-                height: 45,
-                color: Colors.black,
+                height: 56,
               ),
             ),
             Container(

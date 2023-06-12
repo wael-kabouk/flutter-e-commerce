@@ -1,5 +1,4 @@
 import 'package:e_commerce_app/common/widgets/loader.dart';
-import 'package:e_commerce_app/constants/global_variables.dart';
 import 'package:e_commerce_app/features/home/services/home_services.dart';
 import 'package:e_commerce_app/features/product_details/screens/product_details_screen.dart';
 import 'package:e_commerce_app/models/product.dart';
@@ -28,7 +27,6 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCategoryProducts();
   }

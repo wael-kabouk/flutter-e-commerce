@@ -25,17 +25,20 @@ class AuthService {
           password: password,
           type: "",
           address: "",
-          token: "");
+          token: "",
+          cart: []);
       http.Response res = await http.post(Uri.parse("$uri/api/signup"),
           body: user.toJson(),
           headers: <String, String>{
             'Content-Type': "application/json; charset=UTF-8"
           });
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: (() => showSnackBar(
-              context, "Account created!, Login with the same credential.")));
+      if (context.mounted) {
+        httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: (() => showSnackBar(
+                context, "Account created!, Login with the same credential.")));
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -51,18 +54,25 @@ class AuthService {
           headers: <String, String>{
             'Content-Type': "application/json; charset=UTF-8"
           });
-      httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: (() async {
-            SharedPreferences sharedPreferences =
-                await SharedPreferences.getInstance();
-            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-            await sharedPreferences.setString(
-                "x-auth-token", jsonDecode(res.body)['token']);
-            Navigator.pushNamedAndRemoveUntil(
-                context, BottomBar.routeName, (route) => false);
-          }));
+      if (context.mounted) {
+        httpErrorHandle(
+            response: res,
+            context: context,
+            onSuccess: (() async {
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              if (context.mounted) {
+                Provider.of<UserProvider>(context, listen: false)
+                    .setUser(res.body);
+              }
+              await sharedPreferences.setString(
+                  "x-auth-token", jsonDecode(res.body)['token']);
+              if (context.mounted) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, BottomBar.routeName, (route) => false);
+              }
+            }));
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -95,9 +105,10 @@ class AuthService {
               'Content-Type': "application/json; charset=UTF-8",
               "x-auth-token": token
             });
-
-        var userProvider = Provider.of<UserProvider>(context, listen: false);
-        userProvider.setUser(userRes.body);
+        if (context.mounted) {
+          var userProvider = Provider.of<UserProvider>(context, listen: false);
+          userProvider.setUser(userRes.body);
+        }
       }
 
       // http.Response res = await http.post(Uri.parse("$uri/api/signin"),

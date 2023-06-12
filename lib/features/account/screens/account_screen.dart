@@ -21,8 +21,7 @@ class AccountScreen extends StatelessWidget {
               child: Image.asset(
                 "assets/images/logo.png",
                 width: 120,
-                height: 45,
-                color: Colors.black,
+                height: 56,
               ),
             ),
             Container(

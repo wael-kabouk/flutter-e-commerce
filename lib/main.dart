@@ -25,7 +25,6 @@ class _MyAppState extends State<MyApp> {
   final AuthService authService = AuthService();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     authService.getUserData(context);
   }
@@ -34,15 +33,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "E-Commerce",
+        title: "GENIE-STORE",
         theme: ThemeData(
-            scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-            colorScheme: const ColorScheme.light(
-                primary: GlobalVariables.secondaryColor),
-            appBarTheme: const AppBarTheme(
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black),
-            )),
+          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+          colorScheme:
+              const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+          appBarTheme: const AppBarTheme(
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
+        ),
         onGenerateRoute: (settings) => generateRoute(settings),
         home: Provider.of<UserProvider>(context).user.token.isNotEmpty
             ? Provider.of<UserProvider>(context).user.type == 'user'

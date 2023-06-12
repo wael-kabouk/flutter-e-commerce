@@ -38,16 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextFormField(
                       onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
-                          prefixIcon: InkWell(
-                            onTap: () {},
-                            child: const Padding(
-                                padding: EdgeInsets.only(left: 6),
-                                child: Icon(
-                                  Icons.search,
-                                  color: Colors.black,
-                                  size: 23,
-                                )),
-                          ),
+                          prefixIcon: const Padding(
+                              padding: EdgeInsets.only(left: 6),
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                                size: 23,
+                              )),
                           filled: true,
                           fillColor: Colors.white,
                           contentPadding: const EdgeInsets.only(top: 8),

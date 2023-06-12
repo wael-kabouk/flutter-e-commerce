@@ -28,7 +28,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   List<File> images = [];
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     productNameController.dispose();
     descriptionController.dispose();

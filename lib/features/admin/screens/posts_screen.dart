@@ -35,7 +35,6 @@ class _PostsScreenState extends State<PostsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getAllProducts();
   }
